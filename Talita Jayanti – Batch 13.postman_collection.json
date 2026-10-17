@@ -1,0 +1,104 @@
+{
+  "info": {
+    "_postman_id": "297b938a-94e4-4b2e-90b9-cc2cc7a42a64",
+    "name": "Talita Jayanti – Batch 13",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "45671769",
+    "_collection_link": "https://go.postman.co/collection/45671769-297b938a-94e4-4b2e-90b9-cc2cc7a42a64?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "New Request",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"First user has username\", () => {\r\n    let jsonData = pm.response.json();\r\n    pm.expect(jsonData.users[0]).to.have.property(\"username\");\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          }
+        ],
+        "url": {
+          "raw": "https://belajar-bareng.onrender.com/api/users",
+          "protocol": "https",
+          "host": [
+            "belajar-bareng",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "api",
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// Pre-request script is empty"
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Message is Login successful\", () => {\r\n    let jsonData = pm.response.json();\r\n    pm.expect(jsonData.message).to.eql(\"Login successful\");\r\n});\r\n\r\nlet jsonData = pm.response.json();\r\npm.collectionVariables.set('token', jsonData.token);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"admin\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://belajar-bareng.onrender.com/api/login",
+          "protocol": "https",
+          "host": [
+            "belajar-bareng",
+            "onrender",
+            "com"
+          ],
+          "path": [
+            "api",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "token",
+      "value": ""
+    }
+  ]
+}
